@@ -71,6 +71,114 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-开源蜜罐方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/05/31/%E5%BC%80%E6%BA%90%E8%9C%9C%E7%BD%90%E6%96%B9%E6%A1%88/" class="article-date">
+  <time class="dt-published" datetime="2022-05-31T09:52:32.147Z" itemprop="datePublished">2022-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="蜜罐"><a href="#蜜罐" class="headerlink" title="蜜罐"></a>蜜罐</h1><blockquote>
+<p>使用开源方案HFish作为演示，官网：<a target="_blank" rel="noopener" href="https://hfish.io/">https://hfish.io/</a></p>
+</blockquote>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>HFish是一款社区型免费蜜罐，侧重企业安全场景，从内网失陷检测、外网威胁感知、威胁情报生产三个场景出发，为用户提供可独立操作且实用的功能，通过安全、敏捷、可靠的中低交互蜜罐增加用户在失陷感知和威胁情报领域的能力。</p>
+<p>HFish具有超过40种蜜罐环境、提供免费的云蜜网、可高度自定义的蜜饵能力、一键部署、跨平台多架构、国产操作系统和CPU支持、极低的性能要求、邮件&#x2F;syslog&#x2F;webhook&#x2F;企业微信&#x2F;钉钉&#x2F;飞书告警等多项特性，帮助用户降低运维成本，提升运营效率。</p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>官方文档：<a target="_blank" rel="noopener" href="https://hfish.io/#/2-0-deploy">https://hfish.io/#/2-0-deploy</a></p>
+<p>Linux离线安装</p>
+<p>将安装包解压上传至服务器，出现下图表示安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd hfish-2.8.1-linux-amd64</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20220216153550754-164499695142732.png" alt="image-20220216153550754"></p>
+<p>访问：<a target="_blank" rel="noopener" href="https://172.16.75.225:4433/web/login%EF%BC%8C%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81admin%EF%BC%9AHFish2021">https://172.16.75.225:4433/web/login，账户密码admin：HFish2021</a></p>
+<p><img src="/../images/image-20220216154005654-164499720641133.png" alt="image-20220216154005654"></p>
+<h2 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h2><blockquote>
+<p>添加节点</p>
+</blockquote>
+<p>在节点主机上输入生成的命令，需要预装tar组件</p>
+<p><img src="/../images/image-20220216154047202-164499724780934.png" alt="image-20220216154047202"></p>
+<blockquote>
+<p>新建蜜罐模板</p>
+</blockquote>
+<p><img src="/../images/image-20220216154146906.png" alt="image-20220216154146906"></p>
+<p>在节点处选择模板</p>
+<p><img src="/../images/image-20220216154258918.png" alt="image-20220216154258918"></p>
+<blockquote>
+<p>自定义服务</p>
+</blockquote>
+<p><img src="/../images/image-20220216154209246-164499733008535.png" alt="image-20220216154209246"></p>
+<h2 id="4-HFish指纹"><a href="#4-HFish指纹" class="headerlink" title="4. HFish指纹"></a>4. HFish指纹</h2><p>所有默认HFish页面都会包含portrait.js，会包含baidu，iqiyi等关键字</p>
+<p><img src="/../images/image-20220216161744534-164499946526436.png" alt="image-20220216161744534"></p>
+<p><img src="/../images/image-20220216162429576-164499987054737.png" alt="image-20220216162429576"></p>
+<p><img src="/../images/image-20220216162444383-164499988532038.png" alt="image-20220216162444383"></p>
+<p><img src="/../images/image-20220216183623234-164500778424539.png" alt="image-20220216183623234"></p>
+<h2 id="5-蜜网"><a href="#5-蜜网" class="headerlink" title="5. 蜜网"></a>5. 蜜网</h2><h3 id="5-1-分析蜜罐"><a href="#5-1-分析蜜罐" class="headerlink" title="5.1. 分析蜜罐"></a>5.1. 分析蜜罐</h3><p>蜜罐的基本观念：</p>
+<ol>
+<li>拖住攻击者，留足响应的时间</li>
+<li>蜜饵，虚假的配置文件，引诱攻击者者登录</li>
+<li>溯源，基于JSONP漏洞</li>
+</ol>
+<h3 id="5-2-密网设计"><a href="#5-2-密网设计" class="headerlink" title="5.2. 密网设计"></a>5.2. 密网设计</h3><p><strong>未知攻，焉知防</strong></p>
+<p>分析攻击者攻击流程：</p>
+<ol>
+<li>情报搜集（github，gitlab，网盘，文库，子域名，目录，端口扫描）</li>
+<li>漏洞查找（扫描器，手动挖洞，整理资产）</li>
+<li>漏洞校验（SQLmap，Brute，框架漏洞，未授权访问）</li>
+<li>钓鱼、近源渗透</li>
+<li>内网渗透（信息收集，fscan），利用漏洞对内网进行渗透</li>
+</ol>
+<p>如何针对性的设计（要与生产环境隔离）：</p>
+<p>信息收集阶段：</p>
+<ol>
+<li><p>造人设，文档放账号、密码之类。</p>
+</li>
+<li><p>代码文件放数据库连接文件之类。要足够真实</p>
+</li>
+<li><p>诱捕，留下各种文档引诱对方，如果对方问的是假信息，诱捕成功。</p>
+</li>
+<li><p>子域名，拿一个单独的子域名放云上，布置蜜罐</p>
+</li>
+<li><p>目录，留下xxxx.db，xxxx.zip，容量大点，服务器设个几分钟重启服务</p>
+</li>
+</ol>
+<p>漏洞查找阶段：</p>
+<ol>
+<li>整理资产，网站验证时，可以布置jsonp，JS代码，达到溯源的目的</li>
+<li>扫描器，可以放一个有漏洞的网站源码，可以做到诱捕</li>
+<li>爆破，要与信息收集的密码匹配</li>
+</ol>
+<p>钓鱼、近源：</p>
+<ol>
+<li>单独拿一台隔离的电脑，就中招，下木马，与内网隔离开来</li>
+<li>在电脑上留下文档，有用的假信息</li>
+<li>在局域网布置多个蜜罐，均匀分布，如果有机器在建立链接，肯定是被近源渗透</li>
+<li>排查内网的后门</li>
+</ol>
+<p>诱捕：</p>
+<ol>
+<li>放在最后，清理完攻击痕迹</li>
+</ol>
+<p>剧本：<strong>真实</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/05/31/%E5%BC%80%E6%BA%90%E8%9C%9C%E7%BD%90%E6%96%B9%E6%A1%88/" data-id="cl3tzettf0000qsu6b6xifi9r" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Nginx+WAF+RASP配置和使用教程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/05/31/Nginx+WAF+RASP%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="article-date">
@@ -334,6 +442,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/05/31/%E5%BC%80%E6%BA%90%E8%9C%9C%E7%BD%90%E6%96%B9%E6%A1%88/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2022/05/31/Nginx+WAF+RASP%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">(no title)</a>
