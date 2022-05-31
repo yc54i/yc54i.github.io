@@ -42,7 +42,7 @@
 <meta property="og:image" content="http://example.com/images/image-20220215154737547.png">
 <meta property="og:image" content="http://example.com/images/image-20220215192256204-164492417761529.png">
 <meta property="article:published_time" content="2022-05-31T09:50:18.801Z">
-<meta property="article:modified_time" content="2022-03-10T08:50:22.000Z">
+<meta property="article:modified_time" content="2022-05-31T10:09:05.932Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/image-20220215162439879-164491348071117.png">
@@ -149,7 +149,7 @@
 <p>验证是否安装成功，如果出现下图内容则安装成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/modsecurity/</span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
 
-<p><img src="/../images/image-20220215162439879-164491348071117.png" alt="image-20220215162439879"></p>
+<p><img src="/./images/image-20220215162439879-164491348071117.png" alt="image-20220215162439879"></p>
 <p>下载，安装nginx连接器源码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/</span><br><span class="line">git clone https://github.com/SpiderLabs/ModSecurity-nginx</span><br><span class="line">wget http://tengine.taobao.org/download/tengine-2.3.2.tar.gz</span><br><span class="line">tar -xzvf tengine-2.3.3.tar.gz</span><br></pre></td></tr></table></figure>
 
@@ -159,45 +159,45 @@
 <p>检查是否安装成功，模块中出现modsecurity表示成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx -v</span><br><span class="line">nginx -m</span><br></pre></td></tr></table></figure>
 
-<p><img src="/../images/image-20220215163348742-164491403070318.png" alt="image-20220215163348742"></p>
-<p><img src="/../images/image-20220215163411233-164491405197419.png" alt="image-20220215163411233"></p>
+<p><img src="/./images/image-20220215163348742-164491403070318.png" alt="image-20220215163348742"></p>
+<p><img src="/./images/image-20220215163411233-164491405197419.png" alt="image-20220215163411233"></p>
 <h3 id="1-3-配置主规则集"><a href="#1-3-配置主规则集" class="headerlink" title="1.3. 配置主规则集"></a>1.3. 配置主规则集</h3><p>拷贝主规则集，&#x2F;owasp-modsecurity-crs&#x2F;</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git</span><br><span class="line">cd /usr/local/nginx/</span><br><span class="line">cp -r /opt/mod/owasp-modsecurity-crs/ .</span><br><span class="line">cd owasp-modsecurity-crs/</span><br><span class="line">cp crs-setup.conf.example crs-setup.conf</span><br></pre></td></tr></table></figure>
 
 <p>修改规则，开启阈值模式</p>
-<p><img src="/../images/image-20220215163923834.png" alt="image-20220215163923834"></p>
+<p><img src="/./images/image-20220215163923834.png" alt="image-20220215163923834"></p>
 <p>调整防御等级为4</p>
-<p><img src="/../images/image-20220215164029542-164491443060120.png" alt="image-20220215164029542"></p>
-<p><img src="/../images/image-20220215164119888-164491448081022.png" alt="image-20220215164119888"></p>
+<p><img src="/./images/image-20220215164029542-164491443060120.png" alt="image-20220215164029542"></p>
+<p><img src="/./images/image-20220215164119888-164491448081022.png" alt="image-20220215164119888"></p>
 <p>开启权值，默认5432</p>
-<p><img src="/../images/image-20220215164150607-164491451181323.png" alt="image-20220215164150607"></p>
+<p><img src="/./images/image-20220215164150607-164491451181323.png" alt="image-20220215164150607"></p>
 <p>设置出入站权值</p>
-<p><img src="/../images/image-20220215164223425-164491454430724.png" alt="image-20220215164223425"></p>
+<p><img src="/./images/image-20220215164223425-164491454430724.png" alt="image-20220215164223425"></p>
 <p>保存退出</p>
 <h3 id="1-4-配置nginx"><a href="#1-4-配置nginx" class="headerlink" title="1.4. 配置nginx"></a>1.4. 配置nginx</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/</span><br><span class="line">cp /opt/mod//ModSecurity/modsecurity.conf-recommended modsecurity.conf</span><br><span class="line">cp /opt/mod/ModSecurity/unicode.mapping .</span><br><span class="line">vi modsecurity.conf</span><br></pre></td></tr></table></figure>
 
 <p>设置 <strong>SecRuleEngine</strong> 为on，添加规则</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Include owasp-modsecurity-crs/crs-setup.conf</span><br><span class="line">Include owasp-modsecurity-crs/rules/*.conf</span><br></pre></td></tr></table></figure>
 
-<p><img src="/../images/image-20220215165358468-164491523939125.png" alt="image-20220215165358468"></p>
+<p><img src="/./images/image-20220215165358468-164491523939125.png" alt="image-20220215165358468"></p>
 <p>修改nginx.conf文件，清空内容，粘贴准备好的配置，修改IP为DVWA主机</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">worker_processes auto;</span><br><span class="line">error_log /var/log/nginx/error.log;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"></span><br><span class="line"># Load dynamic modules. See /usr/share/nginx/README.dynamic.</span><br><span class="line">#include /usr/share/nginx/modules/*.conf;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                       &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                      &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line">    sendfile            on;</span><br><span class="line">    tcp_nopush          on;</span><br><span class="line">    tcp_nodelay         on;</span><br><span class="line">    keepalive_timeout   65;</span><br><span class="line">    types_hash_max_size 2048;</span><br><span class="line">    include             mime.types;</span><br><span class="line">    default_type        application/octet-stream;</span><br><span class="line">    # Load modular configuration files from the /etc/nginx/conf.d directory.</span><br><span class="line">    # See http://nginx.org/en/docs/ngx_core_module.html#include</span><br><span class="line">    # for more information.</span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">        # Load configuration files for the default server block.</span><br><span class="line">        include /etc/nginx/default.d/*.conf;</span><br><span class="line">upstream web1 &#123;</span><br><span class="line">        server 172.16.85.243  weight=1;</span><br><span class="line">       #server 192.168.0.17  weight=1;</span><br><span class="line">       ip_hash;</span><br><span class="line">        &#125;</span><br><span class="line">	modsecurity on;</span><br><span class="line">server&#123;</span><br><span class="line">	modsecurity_rules_file /usr/local/nginx/modsecurity.conf;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name www.farmsec.org;</span><br><span class="line">        access_log  /var/log/nginx/farmsec.log;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root /home/web1_root;</span><br><span class="line">            proxy_pass http://web1;</span><br><span class="line">            proxy_read_timeout 300;</span><br><span class="line">            proxy_connect_timeout 300;</span><br><span class="line">            proxy_redirect     off;</span><br><span class="line">            proxy_set_header   X-Forwarded-Proto $scheme;</span><br><span class="line">            proxy_set_header   Host              $http_host;</span><br><span class="line">            proxy_set_header   X-Real-IP         $remote_addr;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>检查配置是否正确，出现下图代表成功</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure>
 
-<p><img src="/../images/image-20220215164952175.png" alt="image-20220215164952175"></p>
+<p><img src="/./images/image-20220215164952175.png" alt="image-20220215164952175"></p>
 <p>启动nginx服务</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /usr/local/nginx/nginx.conf</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
 
 <p>访问nginx IP测试</p>
 <h3 id="1-5-日志查看"><a href="#1-5-日志查看" class="headerlink" title="1.5. 日志查看"></a>1.5. 日志查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f /var/log/modsec_audit.log</span><br></pre></td></tr></table></figure>
 
-<p><img src="/../images/image-20220215165611964-164491537297726.png" alt="image-20220215165611964"></p>
+<p><img src="/./images/image-20220215165611964-164491537297726.png" alt="image-20220215165611964"></p>
 <p>输入1’ 触发规则，服务被阻断</p>
-<p><img src="/../images/image-20220215165635748-164491539661727.png" alt="image-20220215165635748"></p>
+<p><img src="/./images/image-20220215165635748-164491539661727.png" alt="image-20220215165635748"></p>
 <p>文件包含，&#x2F;etc&#x2F;passwd，触发规则</p>
-<p><img src="/../images/image-20220215165733006.png" alt="image-20220215165733006"></p>
+<p><img src="/./images/image-20220215165733006.png" alt="image-20220215165733006"></p>
 <h3 id="1-6-小结"><a href="#1-6-小结" class="headerlink" title="1.6. 小结"></a>1.6. 小结</h3><p>用这套体系，可以完成云WAF，结合jenkins自动部署</p>
 <h2 id="2-OpenRASP"><a href="#2-OpenRASP" class="headerlink" title="2. OpenRASP"></a>2. OpenRASP</h2><h3 id="2-1-介绍"><a href="#2-1-介绍" class="headerlink" title="2.1. 介绍"></a>2.1. 介绍</h3><p>OpenRASP 抛弃了传统防火墙依赖请求特征检测攻击的模式，创造性的使用<strong>RASP</strong>技术（应用运行时自我保护），直接注入到被保护应用的服务中提供函数级别的实时防护，可以在不更新策略以及不升级被保护应用代码的情况下检测&#x2F;防护未知漏洞，尤其适合大量使用开源组件的互联网应用以及使用第三方集成商开发的金融类应用。</p>
 <p>另外，OpenRASP 提供的<strong>IAST</strong>（交互式应用安全测试）解决方案，相比于与传统的DAST（动态应用程序安全测试）方案有着革命性提升。漏洞检测无需动态爬虫或者旁路代理，扫描更全面；结合应用探针准确的识别漏洞类型，通过针对性扫描大幅度提升检测效率；商业版新增的动态污点追踪能力，还可以在不扫描的情况下，预判接口是否存在漏洞。</p>
@@ -227,14 +227,14 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/elasticsearch/elasticsearch.yml</span><br></pre></td></tr></table></figure>
 
 <p>取消Cluster，Node注释</p>
-<p><img src="/../images/image-20220215150325417-16449086061212.png" alt="image-20220215150325417"></p>
+<p><img src="/./images/image-20220215150325417-16449086061212.png" alt="image-20220215150325417"></p>
 <p>开启端口，IP设置为任意IP都可访问</p>
-<p><img src="/../images/image-20220215150451384-16449086921604.png" alt="image-20220215150451384"></p>
+<p><img src="/./images/image-20220215150451384-16449086921604.png" alt="image-20220215150451384"></p>
 <p>启动服务</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start elasticsearch.service</span><br><span class="line">systemctl start mongod.service</span><br></pre></td></tr></table></figure>
 
 <p>访问服务器IP:9200端口，出现JSON数据代表启动成功</p>
-<p><img src="/../images/image-20220215151226255-16449091470215.png" alt="image-20220215151226255"></p>
+<p><img src="/./images/image-20220215151226255-16449091470215.png" alt="image-20220215151226255"></p>
 <p>解压rasp-cloud.tar.gz</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xzvf rasp-cloud.tar.gz</span><br></pre></td></tr></table></figure>
 
@@ -247,28 +247,28 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./rasp-cloud -d</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-3-使用"><a href="#2-3-使用" class="headerlink" title="2.3. 使用"></a>2.3. 使用</h3><p>访问IP:8086端口，进入后台管理页面，默认账户密码 openrasp:admin@123</p>
-<p><img src="/../images/image-20220215152411777-16449098532316.png" alt="image-20220215152411777"></p>
+<p><img src="/./images/image-20220215152411777-16449098532316.png" alt="image-20220215152411777"></p>
 <p>后台主页</p>
-<p><img src="/../images/image-20220215152547163-16449099480657.png" alt="image-20220215152547163"></p>
+<p><img src="/./images/image-20220215152547163-16449099480657.png" alt="image-20220215152547163"></p>
 <h4 id="2-3-1-添加主机"><a href="#2-3-1-添加主机" class="headerlink" title="2.3.1. 添加主机"></a>2.3.1. 添加主机</h4><p>OpenRASP包含客户端与服务端两个组件，需要在web主机上安装客户端</p>
-<p><img src="/../images/image-20220215152817780-16449100987338.png" alt="image-20220215152817780"></p>
+<p><img src="/./images/image-20220215152817780-16449100987338.png" alt="image-20220215152817780"></p>
 <p>根据提示安装，出现以下信息代表安装完成，重启Apache服务</p>
-<p><img src="/../images/image-20220215153215069-16449103361079.png" alt="image-20220215153215069"></p>
+<p><img src="/./images/image-20220215153215069-16449103361079.png" alt="image-20220215153215069"></p>
 <p>在主机管理可以看见主机成功上线</p>
-<p><img src="/../images/image-20220215153322219-164491040316110.png" alt="image-20220215153322219"></p>
+<p><img src="/./images/image-20220215153322219-164491040316110.png" alt="image-20220215153322219"></p>
 <h4 id="2-3-2-开启防护"><a href="#2-3-2-开启防护" class="headerlink" title="2.3.2. 开启防护"></a>2.3.2. 开启防护</h4><p><strong>未开启前</strong>，没有任何防护</p>
-<p><img src="/../images/image-20220215153847668-164491072840112.png" alt="image-20220215153847668"></p>
+<p><img src="/./images/image-20220215153847668-164491072840112.png" alt="image-20220215153847668"></p>
 <p>系统设置–&gt;防护设置</p>
-<p><img src="/../images/image-20220215153941846-164491078261513.png" alt="image-20220215153941846"></p>
+<p><img src="/./images/image-20220215153941846-164491078261513.png" alt="image-20220215153941846"></p>
 <p>关闭快速设置，调整漏洞防护行为</p>
-<p><img src="/../images/image-20220215154047952-164491084913414.png" alt="image-20220215154047952"></p>
+<p><img src="/./images/image-20220215154047952-164491084913414.png" alt="image-20220215154047952"></p>
 <p>保存后，需等待生效</p>
-<p><img src="/../images/image-20220215154109642-164491087333615.png" alt="image-20220215154109642"></p>
+<p><img src="/./images/image-20220215154109642-164491087333615.png" alt="image-20220215154109642"></p>
 <p>触发规则</p>
-<p><img src="/../images/image-20220215154554285.png" alt="image-20220215154554285"></p>
+<p><img src="/./images/image-20220215154554285.png" alt="image-20220215154554285"></p>
 <p>添加白名单</p>
-<p><img src="/../images/image-20220215154737547.png" alt="image-20220215154737547"></p>
-<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p><img src="/../images/image-20220215192256204-164492417761529.png" alt="image-20220215192256204"></p>
+<p><img src="/./images/image-20220215154737547.png" alt="image-20220215154737547"></p>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p><img src="/./images/image-20220215192256204-164492417761529.png" alt="image-20220215192256204"></p>
 
       
     </div>
